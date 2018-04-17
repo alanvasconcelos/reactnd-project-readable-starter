@@ -1,0 +1,3 @@
+/* categories */
+export const LOAD_CATEGORY_REQUEST = 'LOAD_CATEGORY_REQUEST';
+export const LOAD_CATEGORY_SUCCESS = 'LOAD_CATEGORY_SUCCESS';
