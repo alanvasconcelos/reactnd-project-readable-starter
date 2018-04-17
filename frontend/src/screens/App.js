@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Container, Grid, Header, Segment, Dimmer, Loader, Menu } from 'semantic-ui-react';
+import { Container, Grid, Header, Segment, Dimmer, Loader } from 'semantic-ui-react';
 
 import Navbar from './../components/Navbar';
 
@@ -23,7 +23,7 @@ class App extends Component {
             <Grid.Row>
               <Grid.Column>
                 <Segment.Group>
-                  <Header as='h4' attached='top'>Categories</Header>
+                  <Header inverted color="black" as="h4" attached="top">Categories</Header>
                   <Dimmer.Dimmable as={Segment.Group} dimmed={this.props.isFetching}>
                     <Dimmer active={this.props.isFetching} inverted>
                       <Loader inverted />
@@ -32,7 +32,9 @@ class App extends Component {
                       !this.props.isFetching
                       && this.props.categories
                       && this.props.categories.map((category) => (
-                        <Segment key={category.path}>{category.name}</Segment>
+                        <Segment key={category.path}>
+                          <NavLink to={`/${category.path}`}>{category.name}</NavLink>
+                        </Segment>
                       ))
                     }
                   </Dimmer.Dimmable>
