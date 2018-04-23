@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import * as types from './../actions/types';
 
-import { loadCategory } from './category';
+import { loadCategories } from './categorySagas';
 
 axios.defaults.baseURL = 'http://localhost:3001';
 axios.defaults.headers.common.Authorization = 'whatever-you-want';
@@ -12,7 +12,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 function *index() {
     yield [
-        takeLatest(types.LOAD_CATEGORY_REQUEST, loadCategory, axios)
+        takeLatest(types.LOAD_CATEGORIES_REQUEST, loadCategories, axios)
     ]
 }
 

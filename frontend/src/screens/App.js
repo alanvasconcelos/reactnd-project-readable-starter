@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Route, Redirect, Switch, NavLink } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Container, Grid, Header, Segment, Dimmer, Loader } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 
 import Navbar from './../components/Navbar';
+import CategoryMenu from './../components/CategoryMenu';
 
-import { loadCategoryRequest } from './../actions/category';
+import { loadCategoriesRequest } from './../actions/categoryActions';
 
 class App extends Component {
 
@@ -22,23 +23,7 @@ class App extends Component {
           <Grid stackable columns={3}>
             <Grid.Row>
               <Grid.Column>
-                <Segment.Group>
-                  <Header inverted color="black" as="h4" attached="top">Categories</Header>
-                  <Dimmer.Dimmable as={Segment.Group} dimmed={this.props.isFetching}>
-                    <Dimmer active={this.props.isFetching} inverted>
-                      <Loader inverted />
-                    </Dimmer>
-                    {
-                      !this.props.isFetching
-                      && this.props.categories
-                      && this.props.categories.map((category) => (
-                        <Segment key={category.path}>
-                          <NavLink to={`/${category.path}`}>{category.name}</NavLink>
-                        </Segment>
-                      ))
-                    }
-                  </Dimmer.Dimmable>
-                </Segment.Group>
+                <CategoryMenu data={this.props.category.data} />
               </Grid.Column>
               <Grid.Column>
                 <Switch>
@@ -56,15 +41,13 @@ class App extends Component {
 
 const mapStateToProps = ({ category }) => {
   return {
-    isFetching: category.isFetching,
-    categories: category.data,
-    error: category.error
+    category: category
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadCategory: () => dispatch(loadCategoryRequest())
+    loadCategory: () => dispatch(loadCategoriesRequest())
   };
 };
 
