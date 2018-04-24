@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import category from './categoryReducer';
+import category from './category';
+import post from './post';
 
 const reducer = combineReducers({
     category,
+    post,
     router: routerReducer
 });
 

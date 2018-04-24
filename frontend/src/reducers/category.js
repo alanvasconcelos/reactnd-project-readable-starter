@@ -1,6 +1,7 @@
 import {
     LOAD_CATEGORIES_REQUEST,
-    LOAD_CATEGORIES_SUCCESS
+    LOAD_CATEGORIES_SUCCESS,
+    LOAD_CATEGORIES_FAILURE
 } from './../actions/types';
 
 const initialState = {
@@ -9,7 +10,7 @@ const initialState = {
     error: ''
 };
 
-const categoryReducer = (state = initialState, action) => {
+const category = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_CATEGORIES_REQUEST: {
             return {
@@ -24,9 +25,17 @@ const categoryReducer = (state = initialState, action) => {
                 isFetching: false
             }
         }
+        case LOAD_CATEGORIES_FAILURE: {
+            return {
+                ...state,
+                data: [],
+                isFetching: false,
+                error: action.error
+            }
+        }
         default:
             return state;
     }
 };
 
-export default categoryReducer;
+export default category;

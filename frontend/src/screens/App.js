@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Container, Grid } from 'semantic-ui-react';
 
-import Navbar from './../components/Navbar';
-import CategoryMenu from './../components/CategoryMenu';
+import { loadCategoriesRequest } from './../actions/category';
 
-import { loadCategoriesRequest } from './../actions/categoryActions';
+import Navbar from './../components/Navbar';
+import Category from './../components/Category';
+
+import HomeScreen from './HomeScreen';
+import CategoryScreen from './CategoryScreen';
 
 class App extends Component {
 
   componentDidMount() {
-    this.props.loadCategory();
+    this.props.loadCategories();
   }
 
   render() {
@@ -20,15 +23,16 @@ class App extends Component {
       <div>
         <Navbar />
         <Container style={{ padding: '5em 0em' }}>
-          <Grid stackable columns={3}>
+          <Grid stackable columns={2}>
             <Grid.Row>
-              <Grid.Column>
-                <CategoryMenu data={this.props.category.data} />
+              <Grid.Column width={4}>
+                <Category categories={this.props.category.data} />
               </Grid.Column>
-              <Grid.Column>
+              <Grid.Column width={12}>
                 <Switch>
-                  <Route exact path="/" />
-                  <Redirect to="/" />
+                  <Route exact path='/' component={HomeScreen} />
+                  <Route path='/:category' component={CategoryScreen} />
+                  <Redirect to='/' component={HomeScreen} />
                 </Switch>
               </Grid.Column>
             </Grid.Row>
@@ -47,8 +51,8 @@ const mapStateToProps = ({ category }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadCategory: () => dispatch(loadCategoriesRequest())
+    loadCategories: () => dispatch(loadCategoriesRequest())
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
