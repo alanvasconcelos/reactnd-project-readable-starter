@@ -26,7 +26,7 @@ class App extends Component {
           <Grid stackable columns={2}>
             <Grid.Row>
               <Grid.Column width={4}>
-                <Category categories={this.props.category.data} />
+                <Category {...this.props.category} />
               </Grid.Column>
               <Grid.Column width={12}>
                 <Switch>
@@ -43,16 +43,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ category }) => {
-  return {
-    category: category
-  };
-};
+const mapStateToProps = ({ category }) => ({ category });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadCategories: () => dispatch(loadCategoriesRequest())
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  loadCategories: () => dispatch(loadCategoriesRequest())
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -16,7 +16,7 @@ function* loadPosts() {
 
 function* loadPostsByCategory({ category }) {
     try {
-        const res = yield axios.get(`${category}/posts`);
+        const res = yield axios.get(`/${category}/posts`);
         yield put(loadPostsSuccess(res.data));
     } catch (error) {
         yield put(loadPostsFailure(error));

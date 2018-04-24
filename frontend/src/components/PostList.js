@@ -4,20 +4,16 @@ import { Card } from 'semantic-ui-react';
 
 import PostCard from './PostCard';
 
-const PostList = ({ data, isFetching, error }) => (
-  <Card.Group>
+const PostList = ({ data }) => (
+  <Card.Group stackable itemsPerRow={2}>
     {
-      data && data.map(p => (
-        <PostCard key={p.id} post={p} />
-      ))
+      data && data.length !== 0 && data.map(p => (<PostCard key={p.id} post={p} />))
     }
   </Card.Group>
 );
-  
+
 PostList.propTypes = {
-  data: PropTypes.array.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired
+  data: PropTypes.array.isRequired
 }
 
 export default PostList;
