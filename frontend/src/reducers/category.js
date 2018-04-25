@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     data: [],
-    isFetching: false,
+    isLoading: false,
     error: ''
 };
 
@@ -15,21 +15,20 @@ const category = (state = initialState, action) => {
         case LOAD_CATEGORIES_REQUEST: {
             return {
                 ...state,
-                isFetching: true
+                isLoading: true
             }
         }
         case LOAD_CATEGORIES_SUCCESS: {
             return {
                 ...state,
                 data: action.data,
-                isFetching: false
+                isLoading: false
             }
         }
         case LOAD_CATEGORIES_FAILURE: {
             return {
                 ...state,
-                data: [],
-                isFetching: false,
+                isLoading: false,
                 error: action.error
             }
         }

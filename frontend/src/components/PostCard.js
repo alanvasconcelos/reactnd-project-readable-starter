@@ -5,29 +5,58 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import capitalize from 'capitalize';
 
-import { Card, Header, Label } from 'semantic-ui-react';
+import { Card, Header, Label, Button, Icon, Popup, Grid } from 'semantic-ui-react';
 
-const PostCard = ({ post }) => (
+const PostCard = ({ post, onPostVote }) => (
     <Card fluid>
-        <Card.Content raised>
+        <Card.Content>
             <Label as={NavLink} color='grey' ribbon='right' to={`/${post.category}`} name={post.category} content={capitalize.words(post.category)} />
             <Card.Header>
-                <Header as={NavLink} to={`/${post.category}/${post.id}`} content={post.title} size='tiny' />
+                <Header active='true' as={NavLink} to={`/${post.category}/${post.id}`} content={post.title} size='tiny' />
             </Card.Header>
             <Card.Meta>
                 {`Posted by ${post.author || ''} - ${moment(post.timestamp).format('MM/DD/YYYY HH:mm')}`}
             </Card.Meta>
-            <Card.Description>
-                {post.body}
-            </Card.Description>
         </Card.Content>
         <Card.Content extra>
+            <Grid columns={2}>
+                <Grid.Row>
+                    <Grid.Column>
+                        <Popup trigger={
+                            <Label size='large' basic pointing='right'>{post.voteScore}</Label>
+                        } content='Vote Score' />
+                        <Button.Group>
+                            <Popup trigger={
+                                <Button basic icon size='mini' color='green' onClick={() => onPostVote(post.id, 'upVote')}>
+                                    <Icon flipped='horizontally' name='thumbs outline up' />
+                                </Button>
+                            } content='Vote Up' />
+                            <Popup trigger={
+                                <Button basic icon size='mini' color='red' onClick={() => onPostVote(post.id, 'downVote')}>
+                                    <Icon name='thumbs outline down' />
+                                </Button>
+                            } content='Vote Down' />
+                        </Button.Group>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Button as='div' labelPosition='left' floated='right'>
+                            <Label basic pointing='right'>{post.commentCount}</Label>
+                            <Popup trigger={
+                                <Button icon>
+                                    <Icon name='comment' />
+                                </Button>
+                            } content='Comments' />
+                        </Button>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
         </Card.Content>
     </Card>
 );
 
 PostCard.propTypes = {
-    post: PropTypes.object.isRequired
+    post: PropTypes.object.isRequired,
+    onPostVote: PropTypes.func.isRequired
 }
 
 export default PostCard;

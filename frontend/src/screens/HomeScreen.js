@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Segment } from 'semantic-ui-react';
 
-import { loadPostsRequest } from './../actions/post';
+import { loadPostsRequest, sendPostVoteRequest } from './../actions/post';
 import { TITLE_ALL_POSTS } from './../utils/constants';
 
 import PostList from './../components/PostList';
@@ -16,13 +16,13 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { data, isFetching } = this.props.post;
+        const { data, isLoading } = this.props.post;
 
         return (
             <Segment.Group>
                 <TitleHeader title={TITLE_ALL_POSTS} />
-                <Segment attached loading={isFetching}>
-                    <PostList data={data} />
+                <Segment attached loading={isLoading}>
+                    <PostList data={data} onPostVote={this.props.sendPostVote} />
                 </Segment>
             </Segment.Group>
         );
@@ -32,7 +32,8 @@ class HomeScreen extends Component {
 const mapStateToProps = ({ post }) => ({ post });
 
 const mapDispatchToProps = (dispatch) => ({ 
-    loadPosts: () => dispatch(loadPostsRequest()) 
+    loadPosts: () => dispatch(loadPostsRequest()),
+    sendPostVote: (id, option) => dispatch(sendPostVoteRequest(id, option)) 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

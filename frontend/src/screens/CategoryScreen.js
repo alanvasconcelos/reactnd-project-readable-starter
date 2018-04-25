@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { Segment } from 'semantic-ui-react';
 
-import { loadPostsByCategoryRequest } from './../actions/post';
+import { loadPostsByCategoryRequest, sendPostVoteRequest } from './../actions/post';
 
 import PostList from './../components/PostList';
 import TitleHeader from './../components/TitleHeader';
@@ -23,14 +23,14 @@ class CategoryScreen extends Component {
     }
 
     render() {
-        const { data, isFetching } = this.props.post;
+        const { data, isLoading } = this.props.post;
         const category = this.props.category;
 
         return (
             <Segment.Group>
                 <TitleHeader title={category} />
-                <Segment attached loading={isFetching}>
-                    <PostList data={data} />
+                <Segment attached loading={isLoading}>
+                    <PostList data={data} onPostVote={this.props.sendPostVote} />
                 </Segment>
             </Segment.Group>
         )
@@ -43,7 +43,8 @@ const mapStateToProps = ({ post }, { match }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({ 
-    loadPosts: (category) => dispatch(loadPostsByCategoryRequest(category)) 
+    loadPosts: (category) => dispatch(loadPostsByCategoryRequest(category)),
+    sendPostVote: (id, option) => dispatch(sendPostVoteRequest(id, option)) 
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategoryScreen));

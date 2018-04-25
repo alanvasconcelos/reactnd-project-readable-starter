@@ -8,9 +8,9 @@ import { Menu, Dimmer, Loader } from 'semantic-ui-react';
 
 import { TITLE_MENU_CATEGORY } from './../utils/constants';
 
-const Category = ({ data, isFetching }) => (
+const Category = ({ data, isLoading }) => (
     <Menu fluid vertical size='large'>
-        <Dimmer active={isFetching} inverted>
+        <Dimmer active={isLoading} inverted>
             <Loader inverted>Loading</Loader>
         </Dimmer>
         <Menu.Item>
@@ -27,7 +27,8 @@ const Category = ({ data, isFetching }) => (
 );
 
 Category.propTypes = {
-    categories: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired
 }
 
 export default Category;
