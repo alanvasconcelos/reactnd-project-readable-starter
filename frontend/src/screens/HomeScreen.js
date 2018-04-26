@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { Segment } from "semantic-ui-react";
-
 import { loadPostsRequest, sendPostVoteRequest } from "./../actions/post";
 
 import PostList from "./../components/PostList";
-import TitleHeader from "./../components/TitleHeader";
 
 class HomeScreen extends Component {
 
@@ -18,12 +15,11 @@ class HomeScreen extends Component {
         const { data, isLoading } = this.props.post;
 
         return (
-            <Segment.Group>
-                <TitleHeader title="Post's" />
-                <Segment attached loading={isLoading}>
-                    <PostList data={data} onPostVote={this.props.sendPostVote} />
-                </Segment>
-            </Segment.Group>
+            <PostList 
+                title="All Post's" 
+                data={data} 
+                loading ={isLoading}
+                onPostVote={this.props.sendPostVote} />
         );
     }
 }

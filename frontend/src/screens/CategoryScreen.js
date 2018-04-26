@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { Segment } from "semantic-ui-react";
-
 import { loadPostsByCategoryRequest, sendPostVoteRequest } from "./../actions/post";
 
 import PostList from "./../components/PostList";
-import TitleHeader from "./../components/TitleHeader";
 
 
 class CategoryScreen extends Component {
@@ -24,15 +21,13 @@ class CategoryScreen extends Component {
 
     render() {
         const { data, isLoading } = this.props.post;
-        const category = this.props.category;
-
+        
         return (
-            <Segment.Group>
-                <TitleHeader title={category} />
-                <Segment attached loading={isLoading}>
-                    <PostList data={data} onPostVote={this.props.sendPostVote} />
-                </Segment>
-            </Segment.Group>
+            <PostList 
+                title={this.props.category} 
+                data={data} 
+                loading ={isLoading}
+                onPostVote={this.props.sendPostVote} />
         )
     }
 }
