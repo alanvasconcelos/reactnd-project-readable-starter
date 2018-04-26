@@ -2,7 +2,7 @@ import {
   LOAD_CATEGORIES_REQUEST,
   LOAD_CATEGORIES_SUCCESS,
   LOAD_CATEGORIES_FAILURE 
-} from './types';
+} from "./types";
 
 export const loadCategoriesRequest = () => ({
   type: LOAD_CATEGORIES_REQUEST

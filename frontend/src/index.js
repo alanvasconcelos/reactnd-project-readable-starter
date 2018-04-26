@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "react-router-redux";
 
-import store, { history } from './store';
-import App from './screens/App';
+import store, { history } from "./store";
+import App from "./screens/App";
 
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from "./registerServiceWorker";
 
-import 'semantic-ui-css/semantic.min.css';
+import "semantic-ui-css/semantic.min.css";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -17,7 +17,7 @@ ReactDOM.render(
             <App />
         </ConnectedRouter>
      </Provider>,
-    document.getElementById('root')
+    document.getElementById("root")
 );
 
 registerServiceWorker();

@@ -6,12 +6,12 @@ import {
     SEND_POST_VOTE_REQUEST,
     UPDATE_POST_SUCCESS,
     UPDATE_POST_FAILURE
-} from './../actions/types';
+} from "./../actions/types";
 
 const initialState = {
     data: [],
     isLoading: false,
-    error: ''
+    error: ""
 };
 
 const post = (state = initialState, action) => {

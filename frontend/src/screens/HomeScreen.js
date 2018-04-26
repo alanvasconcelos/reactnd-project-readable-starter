@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import { Segment } from 'semantic-ui-react';
+import { Segment } from "semantic-ui-react";
 
-import { loadPostsRequest, sendPostVoteRequest } from './../actions/post';
-import { TITLE_ALL_POSTS } from './../utils/constants';
+import { loadPostsRequest, sendPostVoteRequest } from "./../actions/post";
 
-import PostList from './../components/PostList';
-import TitleHeader from './../components/TitleHeader';
+import PostList from "./../components/PostList";
+import TitleHeader from "./../components/TitleHeader";
 
 class HomeScreen extends Component {
 
@@ -20,7 +19,7 @@ class HomeScreen extends Component {
 
         return (
             <Segment.Group>
-                <TitleHeader title={TITLE_ALL_POSTS} />
+                <TitleHeader title="Post's" />
                 <Segment attached loading={isLoading}>
                     <PostList data={data} onPostVote={this.props.sendPostVote} />
                 </Segment>

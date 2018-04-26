@@ -6,7 +6,7 @@ import {
   SEND_POST_VOTE_REQUEST,
   UPDATE_POST_SUCCESS,
   UPDATE_POST_FAILURE
-} from './types';
+} from "./types";
 
 export const loadPostsRequest = () => ({
   type: LOAD_POSTS_REQUEST

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import { Segment } from 'semantic-ui-react';
+import { Segment } from "semantic-ui-react";
 
-import { loadPostsByCategoryRequest, sendPostVoteRequest } from './../actions/post';
+import { loadPostsByCategoryRequest, sendPostVoteRequest } from "./../actions/post";
 
-import PostList from './../components/PostList';
-import TitleHeader from './../components/TitleHeader';
+import PostList from "./../components/PostList";
+import TitleHeader from "./../components/TitleHeader";
 
 
 class CategoryScreen extends Component {

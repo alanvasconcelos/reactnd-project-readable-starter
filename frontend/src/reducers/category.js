@@ -2,12 +2,12 @@ import {
     LOAD_CATEGORIES_REQUEST,
     LOAD_CATEGORIES_SUCCESS,
     LOAD_CATEGORIES_FAILURE
-} from './../actions/types';
+} from "./../actions/types";
 
 const initialState = {
     data: [],
     isLoading: false,
-    error: ''
+    error: ""
 };
 
 const category = (state = initialState, action) => {

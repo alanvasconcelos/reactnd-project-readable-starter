@@ -1,13 +1,13 @@
-import { put, fork, takeLatest } from 'redux-saga/effects';
+import { put, fork, takeLatest } from "redux-saga/effects";
 
-import axios from 'axios';
+import axios from "axios";
 
-import * as types from './../actions/types';
-import { loadPostsSuccess, loadPostsFailure, updatePostSuccess, updatePostFailure } from './../actions/post';
+import * as types from "./../actions/types";
+import { loadPostsSuccess, loadPostsFailure, updatePostSuccess, updatePostFailure } from "./../actions/post";
 
 function* loadPosts() {
     try {
-        const res = yield axios.get('/posts');
+        const res = yield axios.get("/posts");
         yield put(loadPostsSuccess(res.data));
     } catch (error) {
         yield put(loadPostsFailure(error));
