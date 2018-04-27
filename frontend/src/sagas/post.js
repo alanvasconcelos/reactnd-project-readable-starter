@@ -3,33 +3,21 @@ import { put, fork, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 import * as types from "./../actions/types";
-import { loadPostsSuccess, loadPostsFailure, updatePostSuccess, updatePostFailure } from "./../actions/post";
+import { loadPostsSuccess, updatePostSuccess } from "./../actions/post";
 
 function* loadPosts() {
-    try {
-        const res = yield axios.get("/posts");
-        yield put(loadPostsSuccess(res.data));
-    } catch (error) {
-        yield put(loadPostsFailure(error));
-    }
+    const res = yield axios.get("/posts");
+    yield put(loadPostsSuccess(res.data));
 }
 
 function* loadPostsByCategory({ category }) {
-    try {
-        const res = yield axios.get(`/${category}/posts`);
-        yield put(loadPostsSuccess(res.data));
-    } catch (error) {
-        yield put(loadPostsFailure(error));
-    }
+    const res = yield axios.get(`/${category}/posts`);
+    yield put(loadPostsSuccess(res.data));
 }
 
 function* sendPostVote({ id, option }) {
-    try {
-        const res = yield axios.post(`/posts/${id}`, { option });
-        yield put(updatePostSuccess(res.data));
-    } catch (error) {
-        yield put(updatePostFailure(error));
-    }
+    const res = yield axios.post(`/posts/${id}`, { option });
+    yield put(updatePostSuccess(res.data));
 }
 
 function* watchLoadPosts() {

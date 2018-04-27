@@ -1,37 +1,26 @@
 import {
     LOAD_CATEGORIES_REQUEST,
-    LOAD_CATEGORIES_SUCCESS,
-    LOAD_CATEGORIES_FAILURE
+    LOAD_CATEGORIES_SUCCESS
 } from "./../actions/types";
 
 const initialState = {
     data: [],
-    isLoading: false,
-    error: ""
+    isLoading: false
 };
 
 const category = (state = initialState, action) => {
     switch (action.type) {
-        case LOAD_CATEGORIES_REQUEST: {
+        case LOAD_CATEGORIES_REQUEST:
             return {
                 ...state,
                 isLoading: true
-            }
-        }
-        case LOAD_CATEGORIES_SUCCESS: {
+            };
+        case LOAD_CATEGORIES_SUCCESS:
             return {
                 ...state,
                 data: action.data,
                 isLoading: false
-            }
-        }
-        case LOAD_CATEGORIES_FAILURE: {
-            return {
-                ...state,
-                isLoading: false,
-                error: action.error
-            }
-        }
+            };
         default:
             return state;
     }

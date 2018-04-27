@@ -14,7 +14,7 @@ const PostList = ({ title = '', data = [], loading, onPostVote }) => (
     <Segment attached loading={loading}>
       {
         data && data.length > 0
-          ? <Card.Group stackable itemsPerRow={2}>
+          ? <Card.Group stackable>
               {
                 data.map(p => (
                   <PostCard key={p.id} post={p} onPostVote={onPostVote} />
