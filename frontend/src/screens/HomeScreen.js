@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { loadPostsRequest, sendPostVoteRequest } from "./../actions/post";
+import { findAllPostRequest, updateVotePostRequest, deletePostRequest } from "./../actions/post";
 import { sort } from "./../actions/sort";
 import { getSortPosts } from './../selectors/post';
 
@@ -13,7 +13,7 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { posts, loading, sortMode, sendPostVote, sortPosts } = this.props;
+        const { posts, loading, sortMode, sendPostVote, sortPosts, deletePost } = this.props;
 
         return (
             <PostList
@@ -22,7 +22,8 @@ class HomeScreen extends Component {
                 loading={loading}
                 sort={sortMode}
                 onPostVote={sendPostVote}
-                onSort={sortPosts} />
+                onSort={sortPosts}
+                onPostDelete={deletePost} />
         );
     }
 }
@@ -34,9 +35,10 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    loadPosts: () => dispatch(loadPostsRequest()),
-    sendPostVote: (id, option) => dispatch(sendPostVoteRequest(id, option)),
-    sortPosts: (option) => dispatch(sort(option))
+    loadPosts: () => dispatch(findAllPostRequest()),
+    sendPostVote: (id, option) => dispatch(updateVotePostRequest(id, option)),
+    sortPosts: (option) => dispatch(sort(option)),
+    deletePost: (id) => dispatch(deletePostRequest(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

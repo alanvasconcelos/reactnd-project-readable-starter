@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { loadPostRequest } from './../actions/post';
+import { findOnePostRequest } from './../actions/post';
 import PostDetails from "../components/PostDetails";
 import { getPostByCategoryAndPostID } from "../selectors/post";
 import Page404 from "./Page404";
@@ -15,7 +14,7 @@ class PostScreen extends Component {
 
     render() {
         const { post } = this.props;
-
+        
         return (
             post && post.id
                 ? <PostDetails post={this.props.post} />
@@ -30,7 +29,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    loadPost: (id) => dispatch(loadPostRequest(id))
+    loadPost: (id) => dispatch(findOnePostRequest(id))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostScreen));
+export default connect(mapStateToProps, mapDispatchToProps)(PostScreen);

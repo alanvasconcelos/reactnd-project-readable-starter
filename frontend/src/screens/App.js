@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { Container, Grid } from "semantic-ui-react";
 
-import { loadCategoriesRequest } from "./../actions/category";
+import { findAllCategoryRequest } from "./../actions/category";
 
 import Navbar from "./../components/Navbar";
 import CategoryMenu from "./../components/CategoryMenu";
@@ -26,9 +26,6 @@ class App extends Component {
         <Container style={{ padding: "5em 0em" }}>
           <Grid stackable columns={2}>
             <Grid.Row>
-              <Grid.Column width={4}>
-                <CategoryMenu {...this.props.category} />
-              </Grid.Column>
               <Grid.Column width={12}>
                 <Switch>
                   <Route exact path="/" component={HomeScreen} />
@@ -36,6 +33,9 @@ class App extends Component {
                   <Route exact path="/:category(react|redux|udacity)/:post_id" component={PostScreen} />
                   <Route component={Page404} />
                 </Switch>
+              </Grid.Column>
+              <Grid.Column width={4}>
+                <CategoryMenu {...this.props.category} />
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -48,7 +48,7 @@ class App extends Component {
 const mapStateToProps = ({ category }) => ({ category });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadCategories: () => dispatch(loadCategoriesRequest())
+  loadCategories: () => dispatch(findAllCategoryRequest())
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

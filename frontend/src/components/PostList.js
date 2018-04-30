@@ -7,7 +7,7 @@ import capitalize from "capitalize";
 import PostCard from "./PostCard";
 import SortMode from "./SortMode";
 
-const PostList = ({ title = "", posts = [], loading, sort, onPostVote, onSort }) => (
+const PostList = ({ title = "", posts = [], loading, sort, onPostVote, onSort, onPostDelete }) => (
   <Segment.Group>
     <Segment clearing attached="top">
       <Header as="h2" floated="left">
@@ -23,7 +23,7 @@ const PostList = ({ title = "", posts = [], loading, sort, onPostVote, onSort })
           ? <Card.Group stackable>
             {
               posts.map(p => (
-                <PostCard key={p.id} post={p} onPostVote={onPostVote} />
+                <PostCard key={p.id} post={p} onPostVote={onPostVote} onPostDelete={onPostDelete} />
               ))
             }
           </Card.Group>
@@ -39,7 +39,8 @@ PostList.propTypes = {
   loading: PropTypes.bool.isRequired,
   sort: PropTypes.string.isRequired,
   onPostVote: PropTypes.func.isRequired,
-  onSort: PropTypes.func.isRequired
+  onSort: PropTypes.func.isRequired,
+  onPostDelete: PropTypes.func.isRequired
 }
 
 export default PostList;

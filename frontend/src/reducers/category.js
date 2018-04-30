@@ -1,8 +1,4 @@
-import {
-    LOAD_CATEGORIES_REQUEST,
-    LOAD_CATEGORIES_SUCCESS,
-    LOAD_CATEGORIES_FAILURE
-} from "./../actions/types";
+import { CATEGORY_FIND_ALL_REQUEST, CATEGORY_FIND_ALL_SUCCESS, CATEGORY_FIND_ALL_FAILURE } from "./../actions/types";
 
 const initialState = {
     data: [],
@@ -11,18 +7,18 @@ const initialState = {
 
 const category = (state = initialState, action) => {
     switch (action.type) {
-        case LOAD_CATEGORIES_REQUEST:
+        case CATEGORY_FIND_ALL_REQUEST:
             return {
                 ...state,
                 isLoading: true
             };
-        case LOAD_CATEGORIES_SUCCESS:
+        case CATEGORY_FIND_ALL_SUCCESS:
             return {
                 ...state,
-                data: action.data,
+                data: action.payload.data,
                 isLoading: false
             };
-        case LOAD_CATEGORIES_FAILURE: 
+        case CATEGORY_FIND_ALL_FAILURE: 
             return {
                 ...state,
                 isLoading: false

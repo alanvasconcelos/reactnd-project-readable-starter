@@ -4,41 +4,50 @@ import PropTypes from "prop-types";
 import capitalize from "capitalize";
 import moment from "moment";
 
-import { Card, Confirm, Dropdown, Header, Label, Button, Icon, Popup, Grid } from "semantic-ui-react";
+import { Button, Card, Confirm, Dropdown, Header, Icon, Label, Menu, Popup } from "semantic-ui-react";
 
 class PostCard extends Component {
     state = { modalDeleteOpen: false }
 
     static propTypes = {
         post: PropTypes.object.isRequired,
-        onPostVote: PropTypes.func.isRequired
+        onPostVote: PropTypes.func.isRequired,
+        onPostDelete: PropTypes.func.isRequired
     }
 
-    handleModalDeleteOpen = () => this.setState({ modalDeleteOpen: true })
+    onVotePost = (id, option) => (e) => {
+        e.preventDefault();
+        this.props.onPostVote(id, option);
+    }
 
-    handleModalDeleteConfirm = () => this.setState({ modalDeleteOpen: false })
+    handleModalDeleteOpen = () => this.setState({ modalDeleteOpen: true });
 
-    handleModalDeleteCancel = () => this.setState({ modalDeleteOpen: false })
+    handleModalDeleteConfirm = (id) => () => {
+        this.setState({ modalDeleteOpen: false });
+        this.props.onPostDelete(id);
+    }
+
+    handleModalDeleteCancel = () => this.setState({ modalDeleteOpen: false });
 
     render() {
-        const { post, onPostVote } = this.props;
+        const { post } = this.props;
 
         return (
             <Card fluid>
                 <Card.Content>
-                    <Label as={NavLink} color="grey" ribbon="right" to={`/${post.category}`} name={post.category} content={capitalize.words(post.category)} />
+                    <Label as={NavLink} color="grey" ribbon="right" to={`/${post.category}`} name={post.category} content={capitalize.words(post.category || "")} />
                     <Card.Header>
-                        <Dropdown icon="bars">
+                        <Dropdown icon="ellipsis vertical">
                             <Dropdown.Menu>
                                 <Dropdown.Item icon="edit" text="Edit" />
                                 <Dropdown.Item onClick={this.handleModalDeleteOpen} icon="trash" text="Delete" />
                                 <Confirm
                                     size="small"
                                     open={this.state.modalDeleteOpen}
-                                    header={`Delete the Post?`}
-                                    content={`Are you sure you want to delete the post ${post.title}?`}
+                                    header={`Delete Post?`}
+                                    content={`Are you sure you want to delete the post "${post.title}"?`}
                                     onCancel={this.handleModalDeleteCancel}
-                                    onConfirm={this.handleModalDeleteConfirm}
+                                    onConfirm={this.handleModalDeleteConfirm(post.id)}
                                 />
                             </Dropdown.Menu>
                         </Dropdown>
@@ -48,41 +57,34 @@ class PostCard extends Component {
                         {`Posted by ${post.author || ""} - ${moment(post.timestamp).format("MM/DD/YYYY HH:mm")}`}
                     </Card.Meta>
                 </Card.Content>
-                <Card.Content extra>
-                    <Grid columns="equal">
-                        <Grid.Row>
-                            <Grid.Column>
+                <Card.Content extra className="attached" size="tiny">
+                    <Menu secondary size="tiny">
+                        <Menu.Item fitted><Popup trigger={
+                            <Label size="large" basic pointing="right">{post.voteScore}</Label>
+                        } content="Vote Score" />
+                            <Button.Group>
                                 <Popup trigger={
-                                    <Label size="large" basic pointing="right">{post.voteScore}</Label>
-                                } content="Vote Score" />
-                                <Button.Group>
-                                    <Popup trigger={
-                                        <Button basic icon size="mini" color="green" onClick={() => onPostVote(post.id, "upVote")}>
-                                            <Icon flipped="horizontally" name="thumbs outline up" />
-                                        </Button>
-                                    } content="Vote Up" />
-                                    <Button.Or />
-                                    <Popup trigger={
-                                        <Button basic icon size="mini" color="red" onClick={() => onPostVote(post.id, "downVote")}>
-                                            <Icon name="thumbs outline down" />
-                                        </Button>
-                                    } content="Vote Down" />
-                                </Button.Group>
-                            </Grid.Column>
-                            <Grid.Column>
-                                <Popup trigger={
-                                    <Button as="div" labelPosition="left" floated="right">
-                                        <Label basic pointing="right">{post.commentCount}</Label>
-
-                                        <Button icon>
-                                            <Icon name="comment" />
-                                        </Button>
-
+                                    <Button basic icon size="mini" color="green" onClick={this.onVotePost(post.id, "upVote")}>
+                                        <Icon flipped="horizontally" name="thumbs outline up" />
                                     </Button>
-                                } content="Comments" />
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
+                                } content="Vote Up" />
+                                <Button.Or />
+                                <Popup trigger={
+                                    <Button basic icon size="mini" color="red" onClick={this.onVotePost(post.id, "downVote")}>
+                                        <Icon name="thumbs outline down" />
+                                    </Button>
+                                } content="Vote Down" />
+                            </Button.Group></Menu.Item>
+                        <Menu.Item fitted><Popup trigger={
+                            <Button as="div" labelPosition="left">
+                                <Label basic pointing="right">{post.commentCount}</Label>
+                                <Button icon>
+                                    <Icon name="comment" />
+                                </Button>
+                            </Button>
+                        } content="Comments" />
+                        </Menu.Item>
+                    </Menu>
                 </Card.Content>
             </Card>
         );

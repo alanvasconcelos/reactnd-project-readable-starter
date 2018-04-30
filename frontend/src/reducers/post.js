@@ -1,11 +1,16 @@
 import {
-    LOAD_POSTS_REQUEST,
-    LOAD_POSTS_BY_CATEGORY_REQUEST,
-    LOAD_POSTS_SUCCESS,
-    SEND_POST_VOTE_REQUEST,
-    UPDATE_POST_SUCCESS,
-    LOAD_POST_REQUEST,
-    LOAD_POSTS_FAILURE
+    POST_FIND_ALL_REQUEST,
+    POST_FIND_ALL_SUCCESS,
+    POST_FIND_ALL_FAILURE,
+    POST_FIND_ONE_REQUEST,
+    POST_FIND_ONE_SUCCESS,
+    POST_FIND_ALL_BY_CATEGORY_REQUEST,
+    POST_FIND_ONE_FAILURE,
+    POST_UPDATE_REQUEST,
+    POST_UPDATE_VOTE_REQUEST,
+    POST_UPDATE_SUCCESS,
+    POST_UPDATE_FAILURE,
+    POST_DELETE_REQUEST
 } from "./../actions/types";
 
 const initialState = {
@@ -15,35 +20,67 @@ const initialState = {
 
 const post = (state = initialState, action) => {
     switch (action.type) {
-        case LOAD_POST_REQUEST:
-        case LOAD_POSTS_REQUEST:
+        case POST_FIND_ALL_REQUEST:
             return {
                 ...state,
                 isLoading: true
             };
-        case LOAD_POSTS_BY_CATEGORY_REQUEST:
+        case POST_FIND_ALL_BY_CATEGORY_REQUEST:
             return {
                 ...state,
                 isLoading: true
             };
-        case LOAD_POSTS_SUCCESS:
+        case POST_FIND_ALL_SUCCESS:
             return {
                 ...state,
-                posts: action.data,
+                posts: action.payload.data,
                 isLoading: false
             };
-        case LOAD_POSTS_FAILURE:
+        case POST_FIND_ALL_FAILURE:
             return {
                 ...state,
                 isLoading: false
             };
-        case UPDATE_POST_SUCCESS:
+        case POST_FIND_ONE_REQUEST:
             return {
                 ...state,
-                isLoading: false,
-                posts: state.posts.map(p => p.id === action.data.id ? action.data : p)
+                isLoading: true
             };
-        case SEND_POST_VOTE_REQUEST:
+        case POST_FIND_ONE_SUCCESS: {
+            return {
+                ...state,
+                posts: action.payload.data.id ? [action.payload.data] : [],
+                isLoading: false
+            };
+        }
+        case POST_FIND_ONE_FAILURE:
+            return {
+                ...state,
+                isLoading: false
+            };
+        case POST_UPDATE_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case POST_UPDATE_VOTE_REQUEST:
+            return state;
+        case POST_UPDATE_SUCCESS: 
+            return {
+                ...state,
+                posts: state.posts.map(p => p.id === action.payload.data.id ? action.payload.data : p),
+                isLoading: false
+            };
+        case POST_UPDATE_FAILURE: 
+            return {
+                ...state,
+                isLoading: false
+            };
+        case POST_DELETE_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            };
         default:
             return state;
     }

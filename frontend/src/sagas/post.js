@@ -3,63 +3,84 @@ import { put, fork, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 import * as types from "./../actions/types";
-import { loadPostsSuccess, updatePostSuccess, loadPostsFailure } from "./../actions/post";
+import {
+    findAllPostSuccess,
+    findAllPostFailure,
+    findOnePostSuccess,
+    findOnePostFailure,
+    updatePostSuccess,
+    updatePostFailure
+} from "./../actions/post";
 
-function* loadPosts() {
+function* findAllPost() {
     try {
         const res = yield axios.get("/posts");
-        yield put(loadPostsSuccess(res.data));    
+        yield put(findAllPostSuccess(res.data));
     } catch (error) {
-        yield put(loadPostsFailure(error));
+        yield put(findAllPostFailure(error));
     }
 }
 
-function* loadPostByID({ id }) {
-    try {
-        const res = yield axios.get(`/posts/${id}`);
-        yield put(loadPostsSuccess([res.data]));
-    } catch (error) {
-        yield put(loadPostsFailure(error));
-    }
-}
-
-function* loadPostsByCategory({ category }) {
+function* findAllPostByCategory({ category }) {
     try {
         const res = yield axios.get(`/${category}/posts`);
-        yield put(loadPostsSuccess(res.data));    
+        yield put(findAllPostSuccess(res.data));
     } catch (error) {
-        yield put(loadPostsFailure(error));
+        yield put(findAllPostFailure(error));
     }
 }
 
-function* sendPostVote({ id, option }) {
+function* findOnePost({ id }) {
+    try {
+        const res = yield axios.get(`/posts/${id}`);
+        yield put(findOnePostSuccess(res.data));
+    } catch (error) {
+        yield put(findOnePostFailure(error));
+    }
+}
+
+function* updateVotePost({ id, option }) {
     try {
         const res = yield axios.post(`/posts/${id}`, { option });
-        yield put(updatePostSuccess(res.data));    
+        yield put(updatePostSuccess(res.data));
     } catch (error) {
-        yield put(loadPostsFailure(error));
+        yield put(updatePostFailure(error));
     }
 }
 
-function* watchLoadPosts() {
-    yield takeLatest(types.LOAD_POSTS_REQUEST, loadPosts);
+function* deletePost({ id }) {
+    try {
+        const res = yield axios.delete(`/posts/${id}`);
+        yield put(updatePostSuccess(res.data));
+    } catch (error) {
+        yield put(updatePostFailure(error));
+    }
 }
 
-function* watchLoadPostByID() {
-    yield takeLatest(types.LOAD_POST_REQUEST, loadPostByID);
+function* watchFindAllPost() {
+    yield takeLatest(types.POST_FIND_ALL_REQUEST, findAllPost);
 }
 
-function* watchLoadPostsByCategory() {
-    yield takeLatest(types.LOAD_POSTS_BY_CATEGORY_REQUEST, loadPostsByCategory);
+function* watchFindAllPostByCategory() {
+    yield takeLatest(types.POST_FIND_ALL_BY_CATEGORY_REQUEST, findAllPostByCategory);
 }
 
-function* watchSendPostVote() {
-    yield takeLatest(types.SEND_POST_VOTE_REQUEST, sendPostVote);
+function* watchFindOnePost() {
+    yield takeLatest(types.POST_FIND_ONE_REQUEST, findOnePost);
+}
+
+function* watchUpdateVotePost() {
+    yield takeLatest(types.POST_UPDATE_VOTE_REQUEST, updateVotePost);
+}
+
+function* watchDeletePost() {
+    yield takeLatest(types.POST_DELETE_REQUEST, deletePost);
 }
 
 export const postSagas = [
-    fork(watchLoadPosts),
-    fork(watchLoadPostsByCategory),
-    fork(watchSendPostVote),
-    fork(watchLoadPostByID)
-]
+    fork(watchFindAllPost),
+    fork(watchFindAllPostByCategory),
+    fork(watchFindOnePost),
+    fork(watchUpdateVotePost),
+    fork(watchDeletePost),
+];
