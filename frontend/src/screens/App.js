@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Redirect, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { Container, Grid } from "semantic-ui-react";
@@ -8,9 +8,10 @@ import { loadCategoriesRequest } from "./../actions/category";
 
 import Navbar from "./../components/Navbar";
 import CategoryMenu from "./../components/CategoryMenu";
-
 import HomeScreen from "./HomeScreen";
 import CategoryScreen from "./CategoryScreen";
+import Page404 from "./Page404";
+import PostScreen from "./PostScreen";
 
 class App extends Component {
 
@@ -31,8 +32,9 @@ class App extends Component {
               <Grid.Column width={12}>
                 <Switch>
                   <Route exact path="/" component={HomeScreen} />
-                  <Route path="/:category" component={CategoryScreen} />
-                  <Redirect to="/" component={HomeScreen} />
+                  <Route exact path="/:category(react|redux|udacity)" component={CategoryScreen} />
+                  <Route exact path="/:category(react|redux|udacity)/:post_id" component={PostScreen} />
+                  <Route component={Page404} />
                 </Switch>
               </Grid.Column>
             </Grid.Row>

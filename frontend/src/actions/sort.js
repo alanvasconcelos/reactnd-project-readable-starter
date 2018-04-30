@@ -1,13 +1,6 @@
-import {
-    LOAD_CATEGORIES_REQUEST,
-    LOAD_CATEGORIES_SUCCESS 
-  } from "./types";
+import { SORT_MODE } from "./types";
   
-  export const loadCategoriesRequest = () => ({
-    type: LOAD_CATEGORIES_REQUEST
-  });
-  
-  export const loadCategoriesSuccess = (data) => ({
-    type: LOAD_CATEGORIES_SUCCESS,
-    data
+  export const sort = (sort) => ({
+    type: SORT_MODE,
+    sort
   });

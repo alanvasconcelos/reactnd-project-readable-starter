@@ -5,22 +5,28 @@ import { Card, Container, Header, Segment } from "semantic-ui-react";
 import capitalize from "capitalize";
 
 import PostCard from "./PostCard";
+import SortMode from "./SortMode";
 
-const PostList = ({ title = '', data = [], loading, onPostVote }) => (
+const PostList = ({ title = "", posts = [], loading, sort, onPostVote, onSort }) => (
   <Segment.Group>
-    <Header as="h3" attached="top">
-      {capitalize.words(title)}
-    </Header>
+    <Segment clearing attached="top">
+      <Header as="h2" floated="left">
+        {capitalize.words(title)}
+      </Header>
+      <Header as="h6" floated="right">
+        <SortMode sort={sort} onSort={onSort} />
+      </Header>
+    </Segment>
     <Segment attached loading={loading}>
       {
-        data && data.length > 0
+        posts && posts.length > 0
           ? <Card.Group stackable>
-              {
-                data.map(p => (
-                  <PostCard key={p.id} post={p} onPostVote={onPostVote} />
-                ))
-              }
-            </Card.Group>
+            {
+              posts.map(p => (
+                <PostCard key={p.id} post={p} onPostVote={onPostVote} />
+              ))
+            }
+          </Card.Group>
           : <Container textAlign="center" text><p>No Results.</p></Container>
       }
     </Segment>
@@ -29,9 +35,11 @@ const PostList = ({ title = '', data = [], loading, onPostVote }) => (
 
 PostList.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired,
+  posts: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  onPostVote: PropTypes.func.isRequired
+  sort: PropTypes.string.isRequired,
+  onPostVote: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired
 }
 
 export default PostList;

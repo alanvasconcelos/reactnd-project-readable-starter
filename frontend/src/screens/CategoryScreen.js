@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { loadPostsByCategoryRequest, sendPostVoteRequest } from "./../actions/post";
+import { sort } from "./../actions/sort";
+import { getSortPosts } from './../selectors/post';
 
 import PostList from "./../components/PostList";
-
 
 class CategoryScreen extends Component {
 
@@ -20,26 +21,31 @@ class CategoryScreen extends Component {
     }
 
     render() {
-        const { data, isLoading } = this.props.post;
-        
+        const { posts, loading, sortMode, sendPostVote, sortPosts } = this.props;
+
         return (
-            <PostList 
-                title={this.props.category} 
-                data={data} 
-                loading ={isLoading}
-                onPostVote={this.props.sendPostVote} />
-        )
+            <PostList
+                title={this.props.category}
+                posts={posts}
+                loading={loading}
+                sort={sortMode}
+                onPostVote={sendPostVote}
+                onSort={sortPosts} />
+        );
     }
 }
 
-const mapStateToProps = ({ post }, { match }) => ({ 
-    post, 
-    category: match.params.category 
+const mapStateToProps = (state, ownProps) => ({
+    loading: state.post.isLoading,
+    posts: getSortPosts(state, ownProps) || [],
+    sortMode: state.sort,
+    category: ownProps.match.params.category
 });
 
-const mapDispatchToProps = (dispatch) => ({ 
+const mapDispatchToProps = (dispatch) => ({
     loadPosts: (category) => dispatch(loadPostsByCategoryRequest(category)),
-    sendPostVote: (id, option) => dispatch(sendPostVoteRequest(id, option)) 
+    sendPostVote: (id, option) => dispatch(sendPostVoteRequest(id, option)),
+    sortPosts: (option) => dispatch(sort(option))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CategoryScreen));

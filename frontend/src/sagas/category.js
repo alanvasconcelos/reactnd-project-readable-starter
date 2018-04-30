@@ -3,11 +3,15 @@ import { put, fork, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
 import * as types from "./../actions/types";
-import { loadCategoriesSuccess } from "./../actions/category";
+import { loadCategoriesSuccess, loadCategoriesFailure } from "./../actions/category";
 
 function* loadCategories() {
-    const res = yield axios.get("/categories");
-    yield put(loadCategoriesSuccess(res.data.categories));
+    try {
+        const res = yield axios.get("/categories");
+        yield put(loadCategoriesSuccess(res.data.categories));    
+    } catch (error) {
+        yield put(loadCategoriesFailure(error));
+    }
 }
 
 function* watchLoadCategories() {

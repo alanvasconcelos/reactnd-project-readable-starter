@@ -1,6 +1,7 @@
 import {
     LOAD_CATEGORIES_REQUEST,
-    LOAD_CATEGORIES_SUCCESS
+    LOAD_CATEGORIES_SUCCESS,
+    LOAD_CATEGORIES_FAILURE
 } from "./../actions/types";
 
 const initialState = {
@@ -21,6 +22,11 @@ const category = (state = initialState, action) => {
                 data: action.data,
                 isLoading: false
             };
+        case LOAD_CATEGORIES_FAILURE: 
+            return {
+                ...state,
+                isLoading: false
+            }
         default:
             return state;
     }
