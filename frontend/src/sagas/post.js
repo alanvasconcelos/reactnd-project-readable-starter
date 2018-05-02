@@ -33,6 +33,11 @@ function* findAllPostByCategory({ category }) {
 function* findOnePost({ id }) {
     try {
         const res = yield axios.get(`/posts/${id}`);
+
+        // if (res && res.data && res.data.id) {
+        //     yield commentSagas.findAllCommentByParentID(res.data.id);
+        // }
+
         yield put(findOnePostSuccess(res.data));
     } catch (error) {
         yield put(findOnePostFailure(error));

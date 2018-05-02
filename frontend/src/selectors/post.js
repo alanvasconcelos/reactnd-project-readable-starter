@@ -7,7 +7,7 @@ const getSort = state => state.sort;
 const getPostID = (_, ownProps) => ownProps.match.params.post_id;
 const getCategory = (_, ownProps) => ownProps.match.params.category;
 
-export const getActivePosts = createSelector([getPosts], (posts) => (
+const getActivePosts = createSelector([getPosts], (posts) => (
     posts.filter(p => !p.deleted)
 ));
 

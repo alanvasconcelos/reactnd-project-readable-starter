@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { findAllPostByCategory, updateVotePostRequest, deletePostRequest } from "./../actions/post";
+import { findAllPostByCategoryRequest, updateVotePostRequest, deletePostRequest } from "./../actions/post";
 import { sort } from "./../actions/sort";
 import { getSortPosts } from './../selectors/post';
 
@@ -43,7 +43,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    loadPosts: (category) => dispatch(findAllPostByCategory(category)),
+    loadPosts: (category) => dispatch(findAllPostByCategoryRequest(category)),
     sendPostVote: (id, option) => dispatch(updateVotePostRequest(id, option)),
     sortPosts: (option) => dispatch(sort(option)),
     deletePost: (id) => dispatch(deletePostRequest(id))

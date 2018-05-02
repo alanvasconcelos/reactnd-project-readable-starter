@@ -17,7 +17,7 @@ export const findAllPostRequest = () => ({
   type: POST_FIND_ALL_REQUEST
 });
 
-export const findAllPostByCategory = (category) => ({
+export const findAllPostByCategoryRequest = (category) => ({
   type: POST_FIND_ALL_BY_CATEGORY_REQUEST,
   category
 })

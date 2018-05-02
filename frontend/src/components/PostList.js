@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card, Container, Header, Segment } from "semantic-ui-react";
+import { Container, Header, Segment } from "semantic-ui-react";
 
 import capitalize from "capitalize";
 
@@ -20,14 +20,10 @@ const PostList = ({ title = "", posts = [], loading, sort, onPostVote, onSort, o
     <Segment attached loading={loading}>
       {
         posts && posts.length > 0
-          ? <Card.Group stackable>
-            {
-              posts.map(p => (
-                <PostCard key={p.id} post={p} onPostVote={onPostVote} onPostDelete={onPostDelete} />
-              ))
-            }
-          </Card.Group>
-          : <Container textAlign="center" text><p>No Results.</p></Container>
+          ? posts.map(p => (
+            <PostCard key={p.id} post={p} onPostVote={onPostVote} onPostDelete={onPostDelete} />
+          ))
+          : <Container textAlign="center" text content="No Results." />
       }
     </Segment>
   </Segment.Group>

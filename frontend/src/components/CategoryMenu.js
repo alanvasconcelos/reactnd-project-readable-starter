@@ -6,7 +6,7 @@ import capitalize from "capitalize";
 
 import { Menu, Dimmer, Loader } from "semantic-ui-react";
 
-const CategoryMenu = ({ data, isLoading }) => (
+const CategoryMenu = ({ categories, isLoading }) => (
     <Menu fluid vertical size="large">
         <Dimmer active={isLoading} inverted>
             <Loader inverted />
@@ -15,7 +15,7 @@ const CategoryMenu = ({ data, isLoading }) => (
             <Menu.Header>Categories</Menu.Header>
             <Menu.Menu>
                 {
-                    data && data.map((c) => (
+                    categories && categories.map((c) => (
                         <Menu.Item key={c.path} as={NavLink} to={`/${c.path}`} name={c.name} content={capitalize.words(c.name)} />
                     ))
                 }
@@ -25,7 +25,7 @@ const CategoryMenu = ({ data, isLoading }) => (
 );
 
 CategoryMenu.propTypes = {
-    data: PropTypes.array.isRequired,
+    categories: PropTypes.array.isRequired,
     isLoading: PropTypes.bool.isRequired
 }
 

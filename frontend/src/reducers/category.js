@@ -1,7 +1,7 @@
 import { CATEGORY_FIND_ALL_REQUEST, CATEGORY_FIND_ALL_SUCCESS, CATEGORY_FIND_ALL_FAILURE } from "./../actions/types";
 
 const initialState = {
-    data: [],
+    categories: [],
     isLoading: false
 };
 
@@ -15,7 +15,7 @@ const category = (state = initialState, action) => {
         case CATEGORY_FIND_ALL_SUCCESS:
             return {
                 ...state,
-                data: action.payload.data,
+                categories: action.payload.data,
                 isLoading: false
             };
         case CATEGORY_FIND_ALL_FAILURE: 
