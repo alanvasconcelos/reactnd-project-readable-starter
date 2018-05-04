@@ -45,17 +45,6 @@ class PostCard extends Component {
                         </Header.Subheader>
                         <Label size="mini" tag as={NavLink} to={`/${post.category}`} name={post.category} content={capitalize.words(post.category || "")} />
                     </Header>
-                    <Button.Group basic size="mini" floated="right">
-                        <ButtonAction icon="edit" tooltip="Edit" />
-                        <ButtonAction icon="trash" tooltip="Delete" onClick={this.handleModalDeleteOpen} />
-                        <Confirm
-                            size="small"
-                            open={this.state.modalDeleteOpen}
-                            header={`Delete Post?`}
-                            content={`Are you sure you want to delete the post "${post.title}"?`}
-                            onConfirm={this.handleModalDeleteConfirm(post.id)}
-                            onCancel={this.handleModalDeleteCancel} />
-                    </Button.Group>
                 </Segment>
                 <Menu secondary size="tiny" attached compact>
                     <Menu.Item>
@@ -67,6 +56,21 @@ class PostCard extends Component {
                     <Menu.Item>
                         <CommentCount commentCount={post.commentCount} />
                     </Menu.Item>
+                    <Menu.Menu position="right">
+                        <Menu.Item>
+                            <Button.Group basic size="mini" floated="right">
+                                <ButtonAction icon="edit" tooltip="Edit" />
+                                <ButtonAction icon="trash" tooltip="Delete" onClick={this.handleModalDeleteOpen} />
+                                <Confirm
+                                    size="small"
+                                    open={this.state.modalDeleteOpen}
+                                    header={`Delete Post?`}
+                                    content={`Are you sure you want to delete the post "${post.title}"?`}
+                                    onConfirm={this.handleModalDeleteConfirm(post.id)}
+                                    onCancel={this.handleModalDeleteCancel} />
+                            </Button.Group>
+                        </Menu.Item>
+                    </Menu.Menu>
                 </Menu>
             </Segment.Group>
         );

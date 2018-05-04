@@ -19,7 +19,11 @@ class PostDetails extends Component {
         comments: PropTypes.array.isRequired,
         onPageBack: PropTypes.func.isRequired,
         onPostVote: PropTypes.func.isRequired,
-        onPostDelete: PropTypes.func.isRequired
+        onPostDelete: PropTypes.func.isRequired,
+        onCommentVote: PropTypes.func.isRequired,
+        onCommentDelete: PropTypes.func.isRequired,
+        sort: PropTypes.string.isRequired,
+        onSort: PropTypes.func.isRequired
     }
 
     onVotePost = (id, option) => (e) => {
@@ -38,7 +42,7 @@ class PostDetails extends Component {
     handleModalDeleteCancel = () => this.setState({ modalDeleteOpen: false });
 
     render() {
-        const { post, comments, onPageBack } = this.props;
+        const { post, comments, onPageBack, onCommentVote, onCommentDelete, sort, onSort } = this.props;
 
         return (
             <div>
@@ -74,7 +78,12 @@ class PostDetails extends Component {
                         </Menu.Item>
                     </Menu>
                 </Segment.Group>
-                <CommentList comments={comments} />
+                <CommentList 
+                    comments={comments}
+                    onCommentVote={onCommentVote}
+                    onCommentDelete={onCommentDelete}
+                    sort={sort}
+                    onSort={onSort} />
                 <ConfirmDelete
                     open={this.state.modalDeleteOpen}
                     textHeader="Post"

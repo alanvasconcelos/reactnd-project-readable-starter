@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Container, Header, Segment } from "semantic-ui-react";
+import { Container, Segment, Menu } from "semantic-ui-react";
 
 import capitalize from "capitalize";
 
@@ -9,15 +9,15 @@ import SortMode from "./SortMode";
 
 const PostList = ({ title = "", posts = [], loading, sort, onPostVote, onSort, onPostDelete }) => (
   <Segment.Group>
-    <Segment clearing attached="top">
-      <Header as="h2" floated="left">
-        {capitalize.words(title)}
-      </Header>
-      <Header as="h6" floated="right">
-        <SortMode sort={sort} onSort={onSort} />
-      </Header>
-    </Segment>
-    <Segment attached loading={loading}>
+    <Menu attached="top">
+      <Menu.Item as="h3" header>{capitalize.words(title)}</Menu.Item>
+      <Menu.Menu position="right">
+        <Menu.Item>
+          <SortMode sort={sort} onSort={onSort} />
+        </Menu.Item>
+      </Menu.Menu>
+    </Menu>
+    <Segment attached="bottom" loading={loading}>
       {
         posts && posts.length > 0
           ? posts.map(p => (

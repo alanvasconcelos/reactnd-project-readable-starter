@@ -1,7 +1,11 @@
 import {
     COMMENT_FIND_ALL_BY_PARENT_ID_REQUEST,
     COMMENT_FIND_ALL_SUCCESS,
-    COMMENT_FIND_ALL_FAILURE
+    COMMENT_FIND_ALL_FAILURE,
+    COMMENT_UPDATE_FAILURE,
+    COMMENT_UPDATE_SUCCESS,
+    COMMENT_UPDATE_VOTE_REQUEST,
+    COMMENT_DELETE_REQUEST
 } from "./../actions/types";
 
 const initialState = {
@@ -26,6 +30,24 @@ const comment = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false
+            };
+        case COMMENT_UPDATE_VOTE_REQUEST:
+            return state;
+        case COMMENT_UPDATE_SUCCESS:
+            return {
+                ...state,
+                comments: state.comments.map(p => p.id === action.payload.data.id ? action.payload.data : p),
+                isLoading: false
+            };
+        case COMMENT_UPDATE_FAILURE:
+            return {
+                ...state,
+                isLoading: false
+            };
+        case COMMENT_DELETE_REQUEST:
+            return {
+                ...state,
+                isLoading: true
             };
         default:
             return state;

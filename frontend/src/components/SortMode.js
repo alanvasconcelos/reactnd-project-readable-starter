@@ -14,7 +14,7 @@ const options = [
 
 const SortMode = ({ sort, onSort }) => (
     <Popup trigger={
-        <Dropdown
+        <Dropdown compact icon="sort" floating labeled button className="icon"
             onChange={(e, { value }) => onSort(value)}
             options={options}
             placeholder="Sort Mode"
