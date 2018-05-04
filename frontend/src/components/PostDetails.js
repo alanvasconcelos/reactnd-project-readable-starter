@@ -8,13 +8,15 @@ import VoteScore from "./VoteScore";
 import CommentCount from "./CommentCount";
 import ButtonAction from "./ButtonAction";
 import ConfirmDelete from "./ConfirmDelete";
+import CommentList from "./CommentList";
+
 
 class PostDetails extends Component {
     state = { modalDeleteOpen: false }
 
     static propTypes = {
         post: PropTypes.object.isRequired,
-        //comments: PropTypes.array.isRequired,
+        comments: PropTypes.array.isRequired,
         onPageBack: PropTypes.func.isRequired,
         onPostVote: PropTypes.func.isRequired,
         onPostDelete: PropTypes.func.isRequired
@@ -39,44 +41,47 @@ class PostDetails extends Component {
         const { post, comments, onPageBack } = this.props;
 
         return (
-            <Segment.Group>
-                <Segment clearing attached="top">
-                    <Header as="h2" floated="left">
-                        {post.title}
-                        <Header.Subheader>
-                            {`Posted by ${post.author || ""} - ${moment(post.timestamp).format("MM/DD/YYYY HH:mm")}`}
-                        </Header.Subheader>
-                        <Label size="mini" tag as={NavLink} to={`/${post.category}`} name={post.category} content={capitalize.words(post.category || "")} />
-                    </Header>
-                    <Button.Group basic floated="right">
-                        <ButtonAction icon="reply" tooltip="Back Page" onClick={onPageBack} />
-                        <ButtonAction icon="edit" tooltip="Edit" />
-                        <ButtonAction icon="trash" tooltip="Delete" onClick={this.handleModalDeleteOpen} />
-                    </Button.Group>
-                </Segment>
-                <Segment attached>
-                    <Container fluid>
-                        <p>{post.body}</p>
-                    </Container>
-                </Segment>
-                <Menu secondary size="tiny" attached compact>
-                    <Menu.Item>
-                        <VoteScore
-                            voteScore={post.voteScore}
-                            onVoteUp={this.onVotePost(post.id, "upVote")}
-                            onVoteDown={this.onVotePost(post.id, "downVote")} />
-                    </Menu.Item>
-                    <Menu.Item>
-                        <CommentCount commentCount={post.commentCount} />
-                    </Menu.Item>
-                </Menu>
+            <div>
+                <Segment.Group>
+                    <Segment clearing attached="top">
+                        <Header as="h2" floated="left">
+                            {post.title}
+                            <Header.Subheader>
+                                {`Posted by ${post.author || ""} - ${moment(post.timestamp).format("MM/DD/YYYY HH:mm")}`}
+                            </Header.Subheader>
+                            <Label size="mini" tag as={NavLink} to={`/${post.category}`} name={post.category} content={capitalize.words(post.category || "")} />
+                        </Header>
+                        <Button.Group size="mini" basic floated="right">
+                            <ButtonAction icon="reply" tooltip="Back Page" onClick={onPageBack} />
+                            <ButtonAction icon="edit" tooltip="Edit" />
+                            <ButtonAction icon="trash" tooltip="Delete" onClick={this.handleModalDeleteOpen} />
+                        </Button.Group>
+                    </Segment>
+                    <Segment attached>
+                        <Container fluid>
+                            <p>{post.body}</p>
+                        </Container>
+                    </Segment>
+                    <Menu secondary size="tiny" attached compact>
+                        <Menu.Item>
+                            <VoteScore
+                                voteScore={post.voteScore}
+                                onVoteUp={this.onVotePost(post.id, "upVote")}
+                                onVoteDown={this.onVotePost(post.id, "downVote")} />
+                        </Menu.Item>
+                        <Menu.Item>
+                            <CommentCount commentCount={post.commentCount} />
+                        </Menu.Item>
+                    </Menu>
+                </Segment.Group>
+                <CommentList comments={comments} />
                 <ConfirmDelete
                     open={this.state.modalDeleteOpen}
                     textHeader="Post"
                     textContent={`the post "${post.title}"`}
                     onConfirm={this.handleModalDeleteConfirm(post.id)}
                     onCancel={this.handleModalDeleteCancel} />
-            </Segment.Group>
+            </div>
         );
     }
 }

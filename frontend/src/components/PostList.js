@@ -23,7 +23,7 @@ const PostList = ({ title = "", posts = [], loading, sort, onPostVote, onSort, o
           ? posts.map(p => (
             <PostCard key={p.id} post={p} onPostVote={onPostVote} onPostDelete={onPostDelete} />
           ))
-          : <Container textAlign="center" text content="No Results." />
+          : <Container textAlign="center" text content="No Post's." />
       }
     </Segment>
   </Segment.Group>

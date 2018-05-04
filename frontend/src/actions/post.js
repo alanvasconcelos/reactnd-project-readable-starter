@@ -4,7 +4,6 @@ import {
   POST_FIND_ALL_FAILURE,
   POST_FIND_ONE_REQUEST,
   POST_FIND_ONE_SUCCESS,
-  POST_FIND_ALL_BY_CATEGORY_REQUEST,
   POST_FIND_ONE_FAILURE,
   POST_UPDATE_REQUEST,
   POST_UPDATE_VOTE_REQUEST,
@@ -13,14 +12,10 @@ import {
   POST_DELETE_REQUEST
 } from "./types";
 
-export const findAllPostRequest = () => ({
-  type: POST_FIND_ALL_REQUEST
-});
-
-export const findAllPostByCategoryRequest = (category) => ({
-  type: POST_FIND_ALL_BY_CATEGORY_REQUEST,
+export const findAllPostRequest = (category) => ({
+  type: POST_FIND_ALL_REQUEST,
   category
-})
+});
 
 export const findAllPostSuccess = (data) => ({
   type: POST_FIND_ALL_SUCCESS,

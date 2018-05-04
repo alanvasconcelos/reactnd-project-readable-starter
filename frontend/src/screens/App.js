@@ -8,9 +8,8 @@ import { findAllCategoryRequest } from "./../actions/category";
 
 import Navbar from "./../components/Navbar";
 import CategoryMenu from "./../components/CategoryMenu";
-import HomeScreen from "./HomeScreen";
-import CategoryScreen from "./CategoryScreen";
-import Page404 from "./Page404";
+import PostsScreen from "./PostsScreen";
+import NotFound from "./NotFound";
 import PostScreen from "./PostScreen";
 
 class App extends Component {
@@ -28,10 +27,10 @@ class App extends Component {
             <Grid.Row>
               <Grid.Column width={12}>
                 <Switch>
-                  <Route exact path="/" component={HomeScreen} />
-                  <Route exact path="/:category(react|redux|udacity)" component={CategoryScreen} />
+                  <Route exact path="/" component={PostsScreen} />
+                  <Route exact path="/:category(react|redux|udacity)" component={PostsScreen} />
                   <Route exact path="/:category(react|redux|udacity)/:post_id" component={PostScreen} />
-                  <Route component={Page404} />
+                  <Route component={NotFound} />
                 </Switch>
               </Grid.Column>
               <Grid.Column width={4}>

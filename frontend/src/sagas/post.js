@@ -12,18 +12,9 @@ import {
     updatePostFailure
 } from "./../actions/post";
 
-function* findAllPost() {
+function* findAllPost({ category }) {
     try {
-        const res = yield axios.get("/posts");
-        yield put(findAllPostSuccess(res.data));
-    } catch (error) {
-        yield put(findAllPostFailure(error));
-    }
-}
-
-function* findAllPostByCategory({ category }) {
-    try {
-        const res = yield axios.get(`/${category}/posts`);
+        const res = yield axios.get((category) ? `/${category}/posts` : "/posts");
         yield put(findAllPostSuccess(res.data));
     } catch (error) {
         yield put(findAllPostFailure(error));
@@ -33,11 +24,6 @@ function* findAllPostByCategory({ category }) {
 function* findOnePost({ id }) {
     try {
         const res = yield axios.get(`/posts/${id}`);
-
-        // if (res && res.data && res.data.id) {
-        //     yield commentSagas.findAllCommentByParentID(res.data.id);
-        // }
-
         yield put(findOnePostSuccess(res.data));
     } catch (error) {
         yield put(findOnePostFailure(error));
@@ -66,10 +52,6 @@ function* watchFindAllPost() {
     yield takeLatest(types.POST_FIND_ALL_REQUEST, findAllPost);
 }
 
-function* watchFindAllPostByCategory() {
-    yield takeLatest(types.POST_FIND_ALL_BY_CATEGORY_REQUEST, findAllPostByCategory);
-}
-
 function* watchFindOnePost() {
     yield takeLatest(types.POST_FIND_ONE_REQUEST, findOnePost);
 }
@@ -84,7 +66,6 @@ function* watchDeletePost() {
 
 export const postSagas = [
     fork(watchFindAllPost),
-    fork(watchFindAllPostByCategory),
     fork(watchFindOnePost),
     fork(watchUpdateVotePost),
     fork(watchDeletePost),

@@ -5,40 +5,41 @@ import { connect } from "react-redux";
 import { findOnePostRequest, updateVotePostRequest, deletePostRequest } from './../actions/post';
 import { findAllCommentByParentIDRequest } from "../actions/comment";
 import { getPostByCategoryAndPostID } from "./../selectors/post";
-import PostDetails from "./../components/PostDetails";
-import Page404 from "./Page404";
 import { getSortComments } from "../selectors/comment";
+
+import PostDetails from "./../components/PostDetails";
+import NotFound from "./NotFound";
 
 class PostScreen extends Component {
 
     componentDidMount() {
-        this.props.loadPost(this.props.postID);
+        const id = this.props.match.params.post_id;
 
-        // if (this.props.post) {
-        //     this.props.loadCommentByPost(this.props.post.id);
-        // }
+        if (id) {
+            this.props.loadPost(id);
+            this.props.loadCommentByPost(id);
+        }
     }
 
     onPageBack = () => this.props.history.goBack();
 
     render() {
-        const { post, sendPostVote, deletePost } = this.props;
+        const { post, comments, sendPostVote, deletePost } = this.props;
 
         return (
             post && post.id
                 ? <PostDetails
                     post={post}
+                    comments={comments}
                     onPageBack={this.onPageBack}
                     onPostVote={sendPostVote}
                     onPostDelete={deletePost} />
-                : <Page404 />
+                : <NotFound />
         );
     }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    hionBackstory: state.history,
-    postID: ownProps.match.params.post_id,
     post: getPostByCategoryAndPostID(state, ownProps) || {},
     comments: getSortComments(state, ownProps) || []
 });

@@ -45,7 +45,7 @@ class PostCard extends Component {
                         </Header.Subheader>
                         <Label size="mini" tag as={NavLink} to={`/${post.category}`} name={post.category} content={capitalize.words(post.category || "")} />
                     </Header>
-                    <Button.Group basic floated="right">
+                    <Button.Group basic size="mini" floated="right">
                         <ButtonAction icon="edit" tooltip="Edit" />
                         <ButtonAction icon="trash" tooltip="Delete" onClick={this.handleModalDeleteOpen} />
                         <Confirm

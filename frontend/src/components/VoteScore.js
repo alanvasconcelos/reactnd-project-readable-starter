@@ -5,16 +5,16 @@ import { Popup, Label, Button, Icon } from "semantic-ui-react";
 const VoteScore = ({ voteScore, onVoteUp, onVoteDown }) => (
     <div>
         <Popup trigger={
-            <Label size="large" basic pointing="right">{voteScore}</Label>
+            <Label size="medium" basic pointing="right">{voteScore}</Label>
         } content="Vote Score" />
-        <Button.Group>
+        <Button.Group size="mini">
             <Popup trigger={
-                <Button basic icon size="mini" color="green" onClick={onVoteUp}>
+                <Button basic icon color="green" onClick={onVoteUp}>
                     <Icon flipped="horizontally" name="thumbs outline up" />
                 </Button>
             } content="Vote Up" />
             <Popup trigger={
-                <Button basic icon size="mini" color="red" onClick={onVoteDown}>
+                <Button basic icon color="red" onClick={onVoteDown}>
                     <Icon name="thumbs outline down" />
                 </Button>
             } content="Vote Down" />

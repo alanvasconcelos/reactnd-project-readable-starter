@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { findAllPostByCategoryRequest, updateVotePostRequest, deletePostRequest } from "./../actions/post";
+import { findAllPostRequest, updateVotePostRequest, deletePostRequest } from "./../actions/post";
 import { sort } from "./../actions/sort";
 import { getSortPosts } from './../selectors/post';
 
 import PostList from "./../components/PostList";
 
-class CategoryScreen extends Component {
-
+class PostsScreen extends Component {
     componentDidMount() {
         this.props.loadPosts(this.props.category);
     }
@@ -20,11 +19,11 @@ class CategoryScreen extends Component {
     }
 
     render() {
-        const { posts, loading, sortMode, sendPostVote, sortPosts, deletePost } = this.props;
+        const { category, posts, loading, sortMode, sendPostVote, sortPosts, deletePost } = this.props;
 
         return (
             <PostList
-                title={this.props.category}
+                title={category || "All Post's"}
                 posts={posts}
                 loading={loading}
                 sort={sortMode}
@@ -43,10 +42,10 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    loadPosts: (category) => dispatch(findAllPostByCategoryRequest(category)),
+    loadPosts: (category) => dispatch(findAllPostRequest(category)),
     sendPostVote: (id, option) => dispatch(updateVotePostRequest(id, option)),
     sortPosts: (option) => dispatch(sort(option)),
     deletePost: (id) => dispatch(deletePostRequest(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(PostsScreen);

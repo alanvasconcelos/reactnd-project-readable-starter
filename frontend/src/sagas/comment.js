@@ -1,4 +1,4 @@
-import { put, fork, takeLatest, select } from "redux-saga/effects";
+import { put, fork, takeLatest } from "redux-saga/effects";
 
 import axios from "axios";
 
@@ -8,23 +8,17 @@ import {
     findAllCommentFailure
 } from "../actions/comment";
 
-import { getPostByCategoryAndPostID } from "../selectors/post";
-
-function* findAllCommentByParentID() {
+function* findAllCommentByParentID({ id }) {
     try {
-        const { post } = yield select();
-        
-        if (post && post.posts) {
-            const res = yield axios.get(`/posts/${post.posts[0].id}/comments`);
-            yield put(findAllCommentSuccess(res.data));
-        }
+        const res = yield axios.get(`/posts/${id}/comments`);
+        yield put(findAllCommentSuccess(res.data));
     } catch (error) {
         yield put(findAllCommentFailure(error));
     }
 }
 
 function* watchFindAllCommentByParentID() {
-    yield takeLatest(types.POST_FIND_ONE_SUCCESS, findAllCommentByParentID);
+    yield takeLatest(types.COMMENT_FIND_ALL_BY_PARENT_ID_REQUEST, findAllCommentByParentID);
 }
 
 export const commentSagas = [
