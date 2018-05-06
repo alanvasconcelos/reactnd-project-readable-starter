@@ -23,7 +23,7 @@ class PostsScreen extends Component {
 
         return (
             <PostList
-                title={category || "All Post's"}
+                category={category}
                 posts={posts}
                 loading={loading}
                 sort={sortMode}

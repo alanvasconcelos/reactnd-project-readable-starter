@@ -8,8 +8,7 @@ import VoteScore from "./VoteScore";
 import CommentCount from "./CommentCount";
 import ButtonAction from "./ButtonAction";
 import ConfirmDelete from "./ConfirmDelete";
-import CommentList from "./CommentList";
-
+import Comment from "./Comment";
 
 class PostDetails extends Component {
     state = { modalDeleteOpen: false }
@@ -22,6 +21,8 @@ class PostDetails extends Component {
         onPostDelete: PropTypes.func.isRequired,
         onCommentVote: PropTypes.func.isRequired,
         onCommentDelete: PropTypes.func.isRequired,
+        onCommentInsert: PropTypes.func.isRequired,
+        onCommentUpdate: PropTypes.func.isRequired,
         sort: PropTypes.string.isRequired,
         onSort: PropTypes.func.isRequired
     }
@@ -42,7 +43,7 @@ class PostDetails extends Component {
     handleModalDeleteCancel = () => this.setState({ modalDeleteOpen: false });
 
     render() {
-        const { post, comments, onPageBack, onCommentVote, onCommentDelete, sort, onSort } = this.props;
+        const { post, comments, onPageBack, onCommentVote, onCommentInsert, onCommentUpdate, onCommentDelete, sort, onSort } = this.props;
 
         return (
             <div>
@@ -55,7 +56,7 @@ class PostDetails extends Component {
                             </Header.Subheader>
                             <Label size="mini" tag as={NavLink} to={`/${post.category}`} name={post.category} content={capitalize.words(post.category || "")} />
                         </Header>
-                        <Button.Group size="mini" basic floated="right">
+                        <Button.Group size="medium" basic floated="right">
                             <ButtonAction icon="reply" tooltip="Back Page" onClick={onPageBack} />
                             <ButtonAction icon="edit" tooltip="Edit" />
                             <ButtonAction icon="trash" tooltip="Delete" onClick={this.handleModalDeleteOpen} />
@@ -78,12 +79,15 @@ class PostDetails extends Component {
                         </Menu.Item>
                     </Menu>
                 </Segment.Group>
-                <CommentList 
-                    comments={comments}
-                    onCommentVote={onCommentVote}
-                    onCommentDelete={onCommentDelete}
+                <Comment
+                    postId={post.id}
                     sort={sort}
-                    onSort={onSort} />
+                    onSort={onSort}
+                    comments={comments}
+                    onCommentInsert={onCommentInsert}
+                    onCommentUpdate={onCommentUpdate}
+                    onCommentVote={onCommentVote}
+                    onCommentDelete={onCommentDelete} />
                 <ConfirmDelete
                     open={this.state.modalDeleteOpen}
                     textHeader="Post"

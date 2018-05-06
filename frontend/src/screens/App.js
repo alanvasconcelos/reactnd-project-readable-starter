@@ -11,6 +11,7 @@ import CategoryMenu from "./../components/CategoryMenu";
 import PostsScreen from "./PostsScreen";
 import NotFound from "./NotFound";
 import PostScreen from "./PostScreen";
+import PostCreateScreen from "./PostCreateScreen";
 
 class App extends Component {
 
@@ -28,7 +29,9 @@ class App extends Component {
               <Grid.Column width={12}>
                 <Switch>
                   <Route exact path="/" component={PostsScreen} />
+                  <Route exact path="/post/new" component={PostCreateScreen} />
                   <Route exact path="/:category(react|redux|udacity)" component={PostsScreen} />
+                  <Route exact path="/:category(react|redux|udacity)/post/new" component={PostCreateScreen} />
                   <Route exact path="/:category(react|redux|udacity)/:post_id" component={PostScreen} />
                   <Route component={NotFound} />
                 </Switch>

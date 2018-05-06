@@ -5,7 +5,11 @@ import {
     COMMENT_UPDATE_VOTE_REQUEST,
     COMMENT_UPDATE_SUCCESS,
     COMMENT_UPDATE_FAILURE,
-    COMMENT_DELETE_REQUEST
+    COMMENT_DELETE_REQUEST,
+    COMMENT_UPDATE_REQUEST,
+    COMMENT_INSERT_REQUEST,
+    COMMENT_INSERT_SUCCESS,
+    COMMENT_INSERT_FAILURE
 } from "./types";
 
 export const findAllCommentByParentIDRequest = (id) => ({
@@ -27,6 +31,26 @@ export const updateVoteCommentRequest = (id, option) => ({
     type: COMMENT_UPDATE_VOTE_REQUEST,
     id,
     option
+});
+
+export const insertCommentRequest = (comment) => ({
+    type: COMMENT_INSERT_REQUEST,
+    comment
+});
+
+export const insertCommentSuccess = (data) => ({
+    type: COMMENT_INSERT_SUCCESS,
+    payload: { data }
+});
+
+export const insertCommentFailure = (error) => ({
+    type: COMMENT_INSERT_FAILURE,
+    payload: new Error()
+});
+
+export const updateCommentRequest = (comment) => ({
+    type: COMMENT_UPDATE_REQUEST,
+    comment
 });
 
 export const updateCommentSuccess = (data) => ({

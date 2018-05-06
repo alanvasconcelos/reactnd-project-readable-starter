@@ -5,7 +5,10 @@ import {
     COMMENT_UPDATE_FAILURE,
     COMMENT_UPDATE_SUCCESS,
     COMMENT_UPDATE_VOTE_REQUEST,
-    COMMENT_DELETE_REQUEST
+    COMMENT_DELETE_REQUEST,
+    COMMENT_INSERT_SUCCESS,
+    COMMENT_INSERT_FAILURE,
+    COMMENT_INSERT_REQUEST
 } from "./../actions/types";
 
 const initialState = {
@@ -29,6 +32,22 @@ const comment = (state = initialState, action) => {
         case COMMENT_FIND_ALL_FAILURE:
             return {
                 ...state,
+                isLoading: false
+            };
+        case COMMENT_INSERT_REQUEST: 
+            return {
+                ...state,
+                isLoading: true
+            };
+        case COMMENT_INSERT_SUCCESS:
+            return {
+                ...state,
+                comments: [...state.comments, action.payload.data],
+                isLoading: false
+            };
+        case COMMENT_INSERT_FAILURE: 
+            return {
+                ...state, 
                 isLoading: false
             };
         case COMMENT_UPDATE_VOTE_REQUEST:

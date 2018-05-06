@@ -11,7 +11,7 @@ const ButtonAction = ({ icon, tooltip, onClick }) => (
 ButtonAction.propTypes = {
     icon: PropTypes.string.isRequired,
     tooltip: PropTypes.string.isRequired,
-    //onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired
 }
 
 export default ButtonAction;

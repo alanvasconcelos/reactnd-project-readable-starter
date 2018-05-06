@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { findOnePostRequest, updateVotePostRequest, deletePostRequest } from './../actions/post';
-import { findAllCommentByParentIDRequest, updateVoteCommentRequest, deleteCommentRequest } from "../actions/comment";
+import { findAllCommentByParentIDRequest, updateVoteCommentRequest, deleteCommentRequest, insertCommentRequest, updateCommentRequest } from "../actions/comment";
 import { sort } from "../actions/sort";
 import { getPostByCategoryAndPostID } from "./../selectors/post";
 import { getSortComments } from "../selectors/comment";
@@ -25,7 +25,7 @@ class PostScreen extends Component {
     onPageBack = () => this.props.history.goBack();
 
     render() {
-        const { post, comments, sendPostVote, deletePost, sendCommentVote, deleteComment, sortMode, sortComments } = this.props;
+        const { post, sortMode, comments, sendPostVote, sendPostDelete, sortComments, sendCommentVote, sendCommentInsert, sendCommentUpdate, sendCommentDelete } = this.props;
 
         return (
             post && post.id
@@ -34,9 +34,11 @@ class PostScreen extends Component {
                     comments={comments}
                     onPageBack={this.onPageBack}
                     onPostVote={sendPostVote}
-                    onPostDelete={deletePost}
+                    onPostDelete={sendPostDelete}
+                    onCommentInsert={sendCommentInsert}
+                    onCommentUpdate={sendCommentUpdate}
                     onCommentVote={sendCommentVote}
-                    onCommentDelete={deleteComment}
+                    onCommentDelete={sendCommentDelete}
                     sort={sortMode}
                     onSort={sortComments} />
                 : <NotFound />
@@ -53,11 +55,13 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
     loadPost: (id) => dispatch(findOnePostRequest(id)),
     sendPostVote: (id, option) => dispatch(updateVotePostRequest(id, option)),
-    deletePost: (id) => dispatch(deletePostRequest(id)),
+    sendPostDelete: (id) => dispatch(deletePostRequest(id)),
     loadCommentByPost: (id) => dispatch(findAllCommentByParentIDRequest(id)),
-    sendCommentVote: (id, option) => dispatch(updateVoteCommentRequest(id, option)),
-    deleteComment: (id) => dispatch(deleteCommentRequest(id)),
     sortComments: (option) => dispatch(sort(option)),
+    sendCommentVote: (id, option) => dispatch(updateVoteCommentRequest(id, option)),
+    sendCommentInsert: (comment) => dispatch(insertCommentRequest(comment)),
+    sendCommentUpdate: (comment) => dispatch(updateCommentRequest(comment)),
+    sendCommentDelete: (id) => dispatch(deleteCommentRequest(id))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostScreen));
