@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import PostForm from "./../components/PostForm";
 import { insertPostRequest } from "../actions/post";
 
-class PostFormScreen extends Component {
+class PostCreateScreen extends Component {
 
     onPageBack = () => this.props.history.goBack();
 
@@ -17,7 +17,8 @@ class PostFormScreen extends Component {
                 post={{ category: category }}
                 categories={categories}
                 onSubmit={sendPostInsert}
-                onCancel={this.onPageBack} />
+                onCancel={this.onPageBack}
+                isEditing={false} />
         );
     }
 }
@@ -31,4 +32,4 @@ const mapDispatchToProps = (dispatch) => ({
     sendPostInsert: (post) => dispatch(insertPostRequest(post))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostFormScreen));;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostCreateScreen));;

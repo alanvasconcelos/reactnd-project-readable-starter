@@ -41,6 +41,15 @@ function* insertPost({ post: { id, timestamp, title, body, author, category } })
     }
 }
 
+function* updatePost({ post: { id, title, body }}) {
+    try {
+        const res = yield axios.put(`/posts/${id}`, { title, body });
+        yield put(updatePostSuccess(res.data));
+    } catch (error) {
+        yield put(updatePostFailure(error));
+    }
+}
+
 function* updateVotePost({ id, option }) {
     try {
         const res = yield axios.post(`/posts/${id}`, { option });
@@ -67,6 +76,10 @@ function* watchFindOnePost() {
     yield takeLatest(types.POST_FIND_ONE_REQUEST, findOnePost);
 }
 
+function* watchUpdatePost() {
+    yield takeLatest(types.POST_UPDATE_REQUEST, updatePost);
+}
+
 function* watchUpdateVotePost() {
     yield takeLatest(types.POST_UPDATE_VOTE_REQUEST, updateVotePost);
 }
@@ -84,5 +97,6 @@ export const postSagas = [
     fork(watchFindOnePost),
     fork(watchUpdateVotePost),
     fork(watchDeletePost),
-    fork(watchInsertPost)
+    fork(watchInsertPost),
+    fork(watchUpdatePost)
 ];

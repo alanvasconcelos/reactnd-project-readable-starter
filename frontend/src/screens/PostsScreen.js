@@ -18,6 +18,8 @@ class PostsScreen extends Component {
         }
     }
 
+    onPageEdit = (post) => (e) => this.props.history.push(`/${post.category}/${post.id}/edit`); 
+
     render() {
         const { category, posts, loading, sortMode, sendPostVote, sortPosts, deletePost } = this.props;
 
@@ -27,6 +29,7 @@ class PostsScreen extends Component {
                 posts={posts}
                 loading={loading}
                 sort={sortMode}
+                onPageEdit={this.onPageEdit}
                 onPostVote={sendPostVote}
                 onSort={sortPosts}
                 onPostDelete={deletePost} />

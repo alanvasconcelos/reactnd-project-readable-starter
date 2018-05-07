@@ -54,9 +54,9 @@ class CommentForm extends Component {
             <Segment>
                 <Form size="small" onSubmit={this.handleSubmit}>
                     <Header as="h3" dividing>{isEditing ? "Edit" : "New"} Comment</Header>
-                    <Form.Input label="Author:" readOnly={isEditing} name="author" required fluid placeholder="Author..." value={author} onChange={this.handleChange} />
+                    <Form.Input label="Author:" disabled={isEditing} name="author" required fluid placeholder="Author..." value={author} onChange={this.handleChange} />
                     <Form.TextArea label="Comment:" name="body" required placeholder="Comment..." value={body} onChange={this.handleChange} />
-                    <Button disabled={!isSubmit} primary size="small">{isEditing ? "Edit" : "Add"}</Button>
+                    <Button disabled={!isSubmit} color="blue" size="small">{isEditing ? "Edit" : "Add"}</Button>
                     <Button type="button" size="small" floated="right" onClick={onCancel}>Cancel</Button>
                 </Form>
             </Segment>

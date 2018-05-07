@@ -15,7 +15,8 @@ class PostCard extends Component {
     static propTypes = {
         post: PropTypes.object.isRequired,
         onPostVote: PropTypes.func.isRequired,
-        onPostDelete: PropTypes.func.isRequired
+        onPostDelete: PropTypes.func.isRequired,
+        onPageEdit: PropTypes.func.isRequired
     }
 
     onVotePost = (id, option) => (e) => {
@@ -33,7 +34,7 @@ class PostCard extends Component {
     handleModalDeleteCancel = () => this.setState({ modalDeleteOpen: false });
 
     render() {
-        const { post } = this.props;
+        const { post, onPageEdit } = this.props;
 
         return (
             <Segment.Group>
@@ -59,7 +60,7 @@ class PostCard extends Component {
                     <Menu.Menu position="right">
                         <Menu.Item>
                             <Button.Group basic size="mini" floated="right">
-                                <ButtonAction icon="edit" tooltip="Edit" />
+                                <ButtonAction icon="edit" tooltip="Edit" onClick={onPageEdit(post)} />
                                 <ButtonAction icon="trash" tooltip="Delete" onClick={this.handleModalDeleteOpen} />
                                 <Confirm
                                     size="small"

@@ -19,6 +19,7 @@ class PostForm extends Component {
     static propTypes = {
         post: PropTypes.object.isRequired,
         categories: PropTypes.array.isRequired,
+        isEditing: PropTypes.bool.isRequired,
         onSubmit: PropTypes.func.isRequired,
         onCancel: PropTypes.func.isRequired
     }
@@ -77,10 +78,10 @@ class PostForm extends Component {
                         {isEditing ? "Edit " : "New "}Post
                     </Header>
                     <Form.Input label="Title:" name="title" required fluid placeholder="Title..." value={title} onChange={this.handleChange} />
-                    <Form.Input label="Author:" readOnly={isEditing} name="author" required fluid placeholder="Author..." value={author} onChange={this.handleChange} />
-                    <Form.Field label="Category:" control={Select} name="category" options={this.onCategories()} placeholder="Category..." value={category} onChange={this.handleChange} />
+                    <Form.Input label="Author:" disabled={isEditing} name="author" required fluid placeholder="Author..." value={author} onChange={this.handleChange} />
+                    <Form.Field label="Category:" disabled={isEditing} name="category" required fluid control={Select}  options={this.onCategories()} placeholder="Category..." value={category} onChange={this.handleChange} />
                     <Form.TextArea label="Post:" name="body" required placeholder="Post..." value={body} onChange={this.handleChange} />
-                    <Button disabled={!isSubmit} primary size="small">{isEditing ? "Edit" : "Add"}</Button>
+                    <Button disabled={!isSubmit} color="blue" size="small">{isEditing ? "Edit" : "Add"}</Button>
                     <Button type="button" size="small" floated="right" onClick={onCancel}>Cancel</Button>
                 </Form>
             </Segment>

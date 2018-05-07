@@ -24,6 +24,8 @@ class PostScreen extends Component {
 
     onPageBack = () => this.props.history.goBack();
 
+    onPageEdit = (post) => (e) => this.props.history.push(`/${post.category}/${post.id}/edit`); 
+
     render() {
         const { post, sortMode, comments, sendPostVote, sendPostDelete, sortComments, sendCommentVote, sendCommentInsert, sendCommentUpdate, sendCommentDelete } = this.props;
 
@@ -33,6 +35,7 @@ class PostScreen extends Component {
                     post={post}
                     comments={comments}
                     onPageBack={this.onPageBack}
+                    onPageEdit={this.onPageEdit}
                     onPostVote={sendPostVote}
                     onPostDelete={sendPostDelete}
                     onCommentInsert={sendCommentInsert}

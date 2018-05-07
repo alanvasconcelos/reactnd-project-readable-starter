@@ -17,6 +17,7 @@ class PostDetails extends Component {
         post: PropTypes.object.isRequired,
         comments: PropTypes.array.isRequired,
         onPageBack: PropTypes.func.isRequired,
+        onPageEdit: PropTypes.func.isRequired,
         onPostVote: PropTypes.func.isRequired,
         onPostDelete: PropTypes.func.isRequired,
         onCommentVote: PropTypes.func.isRequired,
@@ -43,7 +44,7 @@ class PostDetails extends Component {
     handleModalDeleteCancel = () => this.setState({ modalDeleteOpen: false });
 
     render() {
-        const { post, comments, onPageBack, onCommentVote, onCommentInsert, onCommentUpdate, onCommentDelete, sort, onSort } = this.props;
+        const { post, comments, onPageEdit, onPageBack, onCommentVote, onCommentInsert, onCommentUpdate, onCommentDelete, sort, onSort } = this.props;
 
         return (
             <div>
@@ -58,7 +59,7 @@ class PostDetails extends Component {
                         </Header>
                         <Button.Group size="medium" basic floated="right">
                             <ButtonAction icon="reply" tooltip="Back Page" onClick={onPageBack} />
-                            <ButtonAction icon="edit" tooltip="Edit" />
+                            <ButtonAction icon="edit" tooltip="Edit" onClick={onPageEdit(post)} />
                             <ButtonAction icon="trash" tooltip="Delete" onClick={this.handleModalDeleteOpen} />
                         </Button.Group>
                     </Segment>

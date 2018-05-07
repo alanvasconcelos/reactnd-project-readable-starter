@@ -12,6 +12,7 @@ import PostsScreen from "./PostsScreen";
 import NotFound from "./NotFound";
 import PostScreen from "./PostScreen";
 import PostCreateScreen from "./PostCreateScreen";
+import PostEditScreen from "./PostEditScreen";
 
 class App extends Component {
 
@@ -33,6 +34,7 @@ class App extends Component {
                   <Route exact path="/:category(react|redux|udacity)" component={PostsScreen} />
                   <Route exact path="/:category(react|redux|udacity)/post/new" component={PostCreateScreen} />
                   <Route exact path="/:category(react|redux|udacity)/:post_id" component={PostScreen} />
+                  <Route exact path="/:category(react|redux|udacity)/:post_id/edit" component={PostEditScreen} />
                   <Route component={NotFound} />
                 </Switch>
               </Grid.Column>

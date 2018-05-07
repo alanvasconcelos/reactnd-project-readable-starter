@@ -8,7 +8,7 @@ import capitalize from "capitalize";
 import PostCard from "./PostCard";
 import SortMode from "./SortMode";
 
-const PostList = ({ category, posts = [], loading, sort, onPostVote, onSort, onPostDelete }) => (
+const PostList = ({ category, posts = [], loading, sort, onPostVote, onSort, onPostDelete, onPageEdit }) => (
   <Segment.Group>
     <Menu attached="top">
       <Menu.Item as="h3" header>{capitalize.words(category || "All Post's")}</Menu.Item>
@@ -29,7 +29,7 @@ const PostList = ({ category, posts = [], loading, sort, onPostVote, onSort, onP
       {
         posts && posts.length > 0
           ? posts.map(p => (
-            <PostCard key={p.id} post={p} onPostVote={onPostVote} onPostDelete={onPostDelete} />
+            <PostCard key={p.id} post={p} onPostVote={onPostVote} onPostDelete={onPostDelete} onPageEdit={onPageEdit} />
           ))
           : <Container textAlign="center" text content="No Post's." />
       }
@@ -44,7 +44,8 @@ PostList.propTypes = {
   sort: PropTypes.string.isRequired,
   onPostVote: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
-  onPostDelete: PropTypes.func.isRequired
+  onPostDelete: PropTypes.func.isRequired,
+  onPageEdit: PropTypes.func.isRequired
 }
 
 export default PostList;
