@@ -9,7 +9,10 @@ import {
   POST_UPDATE_VOTE_REQUEST,
   POST_UPDATE_SUCCESS,
   POST_UPDATE_FAILURE,
-  POST_DELETE_REQUEST
+  POST_DELETE_REQUEST,
+  POST_INSERT_REQUEST,
+  POST_INSERT_SUCCESS,
+  POST_INSERT_FAILURE
 } from "./types";
 
 export const findAllPostRequest = (category) => ({
@@ -41,6 +44,21 @@ export const findOnePostFailure = (error) => ({
   type: POST_FIND_ONE_FAILURE,
   payload: new Error()
 });
+
+export const insertPostRequest = (post) => ({
+  type: POST_INSERT_REQUEST,
+  post
+});
+
+export const insertPostSuccess = (data) => ({
+  type: POST_INSERT_SUCCESS,
+  payload: { data }
+});
+
+export const insertPostFailure = (error) => ({
+  type: POST_INSERT_FAILURE,
+  payload: new Error()
+})
 
 export const updatePostRequest = (post) => ({
   type: POST_UPDATE_REQUEST,

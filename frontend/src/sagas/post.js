@@ -9,7 +9,9 @@ import {
     findOnePostSuccess,
     findOnePostFailure,
     updatePostSuccess,
-    updatePostFailure
+    updatePostFailure,
+    insertPostSuccess,
+    insertPostFailure
 } from "./../actions/post";
 
 function* findAllPost({ category }) {
@@ -27,6 +29,15 @@ function* findOnePost({ id }) {
         yield put(findOnePostSuccess(res.data));
     } catch (error) {
         yield put(findOnePostFailure(error));
+    }
+}
+
+function* insertPost({ post: { id, timestamp, title, body, author, category } }) {
+    try {
+        const res = yield axios.post(`/posts`, { id, timestamp, title, body, author, category });
+        yield put(insertPostSuccess(res.data));
+    } catch (error) {
+        yield put(insertPostFailure(error));
     }
 }
 
@@ -64,9 +75,14 @@ function* watchDeletePost() {
     yield takeLatest(types.POST_DELETE_REQUEST, deletePost);
 }
 
+function* watchInsertPost() {
+    yield takeLatest(types.POST_INSERT_REQUEST, insertPost);
+}
+
 export const postSagas = [
     fork(watchFindAllPost),
     fork(watchFindOnePost),
     fork(watchUpdateVotePost),
     fork(watchDeletePost),
+    fork(watchInsertPost)
 ];
